@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pystaci.github.io/pseo-service/sitemap-index.xml
+Sitemap: https://pystaci.github.io/sitemap-index.xml
