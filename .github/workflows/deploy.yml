@@ -22,6 +22,8 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+        env:
+          SITE_URL: https://pystaci.github.io/pseo-service
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
