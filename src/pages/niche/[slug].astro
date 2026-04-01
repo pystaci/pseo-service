@@ -1,0 +1,121 @@
+---
+import Base from '../../layouts/Base.astro';
+import niches, { getRelatedNiches, type Niche } from '../../data/niches';
+
+export function getStaticPaths() {
+  return niches.map((niche) => ({
+    params: { slug: niche.slug },
+    props: { niche },
+  }));
+}
+
+interface Props {
+  niche: Niche;
+}
+
+const { niche } = Astro.props;
+const related = getRelatedNiches(niche);
+const paymentLink = import.meta.env.PAYMENT_LINK || 'https://buy.stripe.com/your-link-here';
+const siteUrl = import.meta.env.SITE_URL || 'http://localhost:3100';
+const canonical = `${siteUrl}/niche/${niche.slug}/`;
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": `Programmatic SEO for ${niche.name}`,
+    "description": `Professional programmatic SEO service for ${niche.description}. Hundreds of optimized pages for $499.`,
+    "provider": {
+      "@type": "Organization",
+      "name": "Programmatic SEO Service",
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "499",
+      "priceCurrency": "USD",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": siteUrl },
+      { "@type": "ListItem", "position": 2, "name": `${niche.name} SEO`, "item": canonical },
+    ],
+  },
+];
+---
+
+<Base
+  title={`Programmatic SEO for ${niche.name} — $499 | pSEO`}
+  description={`Get hundreds of SEO-optimized pages built for ${niche.description}. Rank for long-tail keywords in the ${niche.name.toLowerCase()} niche. One-time $499 fee.`}
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+  <nav class="border-b border-gray-100 px-6 py-4 flex items-center justify-between max-w-5xl mx-auto">
+    <a href="/" class="font-semibold text-lg">pSEO</a>
+    <a href={paymentLink} class="text-sm font-medium text-white bg-gray-900 px-4 py-2 rounded hover:bg-gray-700 transition">Get Started — $499</a>
+  </nav>
+
+  <main class="max-w-3xl mx-auto px-6 py-16">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-gray-400 mb-8">
+      <a href="/" class="hover:text-gray-600">Home</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-600">{niche.name} SEO</span>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-6">Programmatic SEO for {niche.name}</h1>
+
+    <div class="prose prose-gray max-w-none">
+      <p class="text-lg text-gray-600 mb-6">
+        If you run a {niche.name.toLowerCase()} business, you know that showing up on the first page of Google is everything. But writing hundreds of pages by hand is slow and expensive. That's where programmatic SEO comes in.
+      </p>
+
+      <h2 class="text-xl font-semibold mt-10 mb-4">Why programmatic SEO works for {niche.description}</h2>
+      <p class="text-gray-600 mb-4">
+        Your potential customers are searching for specific services in specific locations — "best {niche.name.toLowerCase()} near me," "{niche.name.toLowerCase()} services in [city]," and hundreds of similar long-tail queries. Each of those is an opportunity to appear at the top of search results.
+      </p>
+      <p class="text-gray-600 mb-4">
+        We use structured data about your business and target market to generate hundreds of unique, optimized pages — each targeting a different keyword combination. Every page includes proper title tags, meta descriptions, JSON-LD structured data, and internal links.
+      </p>
+
+      <h2 class="text-xl font-semibold mt-10 mb-4">What's included</h2>
+      <ul class="space-y-2 text-gray-600 mb-6">
+        <li class="flex items-start gap-2"><span class="text-green-600">&#10003;</span> 100+ pages optimized for {niche.name.toLowerCase()} keywords</li>
+        <li class="flex items-start gap-2"><span class="text-green-600">&#10003;</span> Unique content per page — no duplicate content penalties</li>
+        <li class="flex items-start gap-2"><span class="text-green-600">&#10003;</span> JSON-LD structured data for rich search results</li>
+        <li class="flex items-start gap-2"><span class="text-green-600">&#10003;</span> XML sitemap for fast indexing</li>
+        <li class="flex items-start gap-2"><span class="text-green-600">&#10003;</span> Mobile-responsive, fast-loading static pages</li>
+        <li class="flex items-start gap-2"><span class="text-green-600">&#10003;</span> Full source code — you own everything</li>
+      </ul>
+
+      <h2 class="text-xl font-semibold mt-10 mb-4">How it works</h2>
+      <ol class="space-y-3 text-gray-600 mb-6 list-decimal list-inside">
+        <li><strong>Tell us about your {niche.name.toLowerCase()} business</strong> — your services, locations, and target audience.</li>
+        <li><strong>We research and build</strong> — we identify the best keyword opportunities and generate your pages.</li>
+        <li><strong>Deploy and rank</strong> — we deploy to fast static hosting and submit your sitemap to Google.</li>
+      </ol>
+
+      <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mt-10 text-center">
+        <p class="text-lg font-semibold mb-2">Get programmatic SEO for your {niche.name.toLowerCase()} business</p>
+        <p class="text-gray-600 mb-4">One-time $499 fee. No subscriptions. Full source code included.</p>
+        <a href={paymentLink} class="inline-block bg-gray-900 text-white font-medium px-8 py-3 rounded hover:bg-gray-700 transition">Get Started — $499</a>
+      </div>
+    </div>
+
+    <!-- Related Niches -->
+    <div class="mt-16 pt-8 border-t border-gray-100">
+      <h2 class="text-lg font-semibold mb-4">Programmatic SEO for related niches</h2>
+      <div class="flex flex-wrap gap-2">
+        {related.map((r) => (
+          <a href={`/niche/${r.slug}/`} class="text-sm px-3 py-1.5 bg-gray-100 rounded hover:bg-gray-200 transition text-gray-700">{r.name}</a>
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-gray-100 py-8 text-center text-sm text-gray-400">
+    <p>&copy; {new Date().getFullYear()} Programmatic SEO Service. All rights reserved.</p>
+  </footer>
+</Base>

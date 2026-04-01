@@ -1,0 +1,140 @@
+---
+import Base from '../layouts/Base.astro';
+import niches from '../data/niches';
+
+const paymentLink = import.meta.env.PAYMENT_LINK || 'https://buy.stripe.com/your-link-here';
+const siteUrl = import.meta.env.SITE_URL || 'http://localhost:3100';
+const canonical = siteUrl;
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Programmatic SEO Service",
+    "description": "We build and deploy programmatic SEO pages that rank for long-tail keywords across your niche — all for a flat $499.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Programmatic SEO Service",
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "499",
+      "priceCurrency": "USD",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Programmatic SEO Service",
+    "url": siteUrl,
+  },
+];
+
+const faqs = [
+  { q: "What is programmatic SEO?", a: "Programmatic SEO is the practice of generating large numbers of search-optimized pages from structured data. Instead of writing each page by hand, we use templates and your business data to publish hundreds or thousands of pages that target long-tail keywords." },
+  { q: "How long until I see results?", a: "Most clients begin seeing indexed pages within 2–4 weeks. Meaningful traffic growth typically starts within 60–90 days, depending on your niche competition." },
+  { q: "What do I need to provide?", a: "Just your niche, target locations or keywords, and any branding assets (logo, colors). We handle the rest — research, page generation, and deployment." },
+  { q: "Is this a one-time payment?", a: "Yes. $499 is a flat, one-time fee. There are no recurring charges. You own the pages we create." },
+  { q: "Can I edit the pages after delivery?", a: "Absolutely. We deliver the full source so you can edit, extend, or redeploy as you see fit." },
+  { q: "What platform do you deploy to?", a: "We typically deploy to Cloudflare Pages or Vercel for speed and reliability, but we can work with any static hosting provider." },
+];
+---
+
+<Base title="Programmatic SEO Service — $499 Flat Fee" description="Get hundreds of SEO-optimized pages built and deployed for your business. One-time $499 fee. No recurring costs." canonical={canonical} jsonLd={jsonLd}>
+  <!-- Nav -->
+  <nav class="border-b border-gray-100 px-6 py-4 flex items-center justify-between max-w-5xl mx-auto">
+    <span class="font-semibold text-lg">pSEO</span>
+    <a href={paymentLink} class="text-sm font-medium text-white bg-gray-900 px-4 py-2 rounded hover:bg-gray-700 transition">Get Started — $499</a>
+  </nav>
+
+  <main class="max-w-4xl mx-auto px-6">
+    <!-- Hero -->
+    <section class="py-20 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight leading-tight">Hundreds of SEO pages.<br />One flat fee.</h1>
+      <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">We research, build, and deploy programmatic SEO pages tailored to your niche — so you rank for the long-tail keywords your competitors ignore.</p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+        <a href={paymentLink} class="inline-block bg-gray-900 text-white font-medium px-8 py-3 rounded hover:bg-gray-700 transition">Get Started — $499</a>
+      </div>
+      <p class="mt-4 text-sm text-gray-400">One-time payment. No subscriptions. You own everything.</p>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-16 border-t border-gray-100">
+      <h2 class="text-2xl font-bold text-center mb-12">How It Works</h2>
+      <div class="grid md:grid-cols-3 gap-10">
+        <div>
+          <div class="text-3xl font-bold text-gray-300 mb-2">1</div>
+          <h3 class="font-semibold text-lg mb-2">Share Your Niche</h3>
+          <p class="text-gray-600">Tell us your industry, target locations, and keywords. We handle the research from there.</p>
+        </div>
+        <div>
+          <div class="text-3xl font-bold text-gray-300 mb-2">2</div>
+          <h3 class="font-semibold text-lg mb-2">We Build Your Pages</h3>
+          <p class="text-gray-600">We generate hundreds of search-optimized pages with unique titles, meta descriptions, and structured data.</p>
+        </div>
+        <div>
+          <div class="text-3xl font-bold text-gray-300 mb-2">3</div>
+          <h3 class="font-semibold text-lg mb-2">Deploy &amp; Rank</h3>
+          <p class="text-gray-600">Pages go live on fast static hosting. Google indexes them, and long-tail traffic starts flowing.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deliverables -->
+    <section class="py-16 border-t border-gray-100">
+      <h2 class="text-2xl font-bold text-center mb-8">What You Get</h2>
+      <ul class="grid sm:grid-cols-2 gap-4 text-gray-700">
+        <li class="flex items-start gap-3"><span class="text-green-600 mt-0.5">&#10003;</span> 100+ programmatic SEO pages</li>
+        <li class="flex items-start gap-3"><span class="text-green-600 mt-0.5">&#10003;</span> Unique title tags &amp; meta descriptions</li>
+        <li class="flex items-start gap-3"><span class="text-green-600 mt-0.5">&#10003;</span> JSON-LD structured data on every page</li>
+        <li class="flex items-start gap-3"><span class="text-green-600 mt-0.5">&#10003;</span> Internal linking between related pages</li>
+        <li class="flex items-start gap-3"><span class="text-green-600 mt-0.5">&#10003;</span> XML sitemap &amp; robots.txt</li>
+        <li class="flex items-start gap-3"><span class="text-green-600 mt-0.5">&#10003;</span> Deployed to Cloudflare Pages or Vercel</li>
+        <li class="flex items-start gap-3"><span class="text-green-600 mt-0.5">&#10003;</span> Full source code delivered to you</li>
+        <li class="flex items-start gap-3"><span class="text-green-600 mt-0.5">&#10003;</span> Canonical tags &amp; mobile-responsive design</li>
+      </ul>
+    </section>
+
+    <!-- Niches -->
+    <section class="py-16 border-t border-gray-100">
+      <h2 class="text-2xl font-bold text-center mb-4">Works for Any Local Business</h2>
+      <p class="text-center text-gray-600 mb-8">We've built programmatic SEO for dozens of niches. Here are some examples:</p>
+      <div class="flex flex-wrap gap-2 justify-center">
+        {niches.map((niche) => (
+          <a href={`/niche/${niche.slug}/`} class="text-sm px-3 py-1.5 bg-gray-100 rounded hover:bg-gray-200 transition text-gray-700">{niche.name}</a>
+        ))}
+      </div>
+    </section>
+
+    <!-- FAQs -->
+    <section class="py-16 border-t border-gray-100">
+      <h2 class="text-2xl font-bold text-center mb-10">Frequently Asked Questions</h2>
+      <div class="space-y-6 max-w-2xl mx-auto">
+        {faqs.map((faq) => (
+          <div>
+            <h3 class="font-semibold text-lg">{faq.q}</h3>
+            <p class="mt-2 text-gray-600">{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Trust -->
+    <section class="py-16 border-t border-gray-100 text-center">
+      <h2 class="text-2xl font-bold mb-4">Simple, Transparent Pricing</h2>
+      <p class="text-gray-600 max-w-xl mx-auto">No hidden fees. No monthly subscriptions. Pay $499 once and get a full programmatic SEO build delivered to your domain. If we can't deliver what we promise, you get a full refund.</p>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 text-center">
+      <h2 class="text-3xl font-bold mb-4">Ready to rank?</h2>
+      <p class="text-gray-600 mb-8">Get your programmatic SEO pages built and deployed today.</p>
+      <a href={paymentLink} class="inline-block bg-gray-900 text-white font-medium px-8 py-3 rounded hover:bg-gray-700 transition text-lg">Get Started — $499</a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-100 py-8 text-center text-sm text-gray-400">
+    <p>&copy; {new Date().getFullYear()} Programmatic SEO Service. All rights reserved.</p>
+  </footer>
+</Base>
