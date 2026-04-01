@@ -24,6 +24,9 @@ jobs:
         run: npm run build
         env:
           SITE_URL: https://pystaci.github.io/pseo-service
+      - name: Post-process sitemaps for GitHub Pages base path
+        run: |
+          sed -i 's|https://pystaci.github.io/|https://pystaci.github.io/pseo-service/|g' dist/sitemap-*.xml dist/sitemap-index.xml || true
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
