@@ -7,6 +7,7 @@ const siteUrl = process.env.SITE_URL || 'http://localhost:3100';
 
 export default defineConfig({
   site: siteUrl,
+  base: '/pseo-service/',
   output: 'static',
   vite: {
     plugins: [tailwindcss()],
